@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate via Google Pay</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <style>
+        * { margin: 10px; }
+        body { background-color: #252330; color: white; text-align: center; }
+        #qr-container { margin-top: 50px; }
+        canvas { margin-top: 20px; }
+
+        /* Button Styling (Same as "Donate Now" Button) */
+        .button1 {
+            display: inline-block;
+            background-color: white;
+            color: #252330;
+            font-size: 18px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .button1:hover {
+            background-color: #86849a;
+        }
+    </style>
+</head>
+<body>
+    <h1>Scan to Pay with Google Pay</h1>
+    <p>Donate ₹<span id="donation-amount">0</span> via UPI</p>
+    <div id="qr-container">
+        <canvas id="qrcode"></canvas>
+    </div>
+
+    <button class="button1" onclick="goBack()">Go Back</button>
+
+    <script>
+        function getQueryParam(name) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(name);
+        }
+
+        function generateQRCode(amount) {
+            if (!amount || isNaN(amount) || amount <= 0) {
+                alert("Invalid amount! Returning to main page.");
+                window.location.href = "index.html";
+                return;
+            }
+
+            document.getElementById("donation-amount").innerText = amount;
+
+            // UPI Payment URL (Replace with your actual UPI ID)
+            const UPI_ID = "slevincordeiro@okicici";
+            const PAYEE_NAME = "Donations";
+            let upiLink = `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(PAYEE_NAME)}&tn=Donation&am=${amount}&cu=INR`;
+
+            // Generate QR Code
+            new QRious({
+                element: document.getElementById('qrcode'),
+                value: upiLink,
+                size: 200
+            });
+
+            console.log("Generated QR Code URL:", upiLink);
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+
+        // Get donation amount from URL and generate QR Code
+        const amount = getQueryParam("amount");
+        generateQRCode(amount);
+    </script>
+</body>
+</html>

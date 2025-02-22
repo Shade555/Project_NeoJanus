@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Page</title>
+    <style>
+        * { margin: 10px; }
+        body { background-color: #252330; color: white; }
+        #donation-header { font-size: 40px; }
+        #message, #donation_bar, .donation-content, #impactMessage { padding-top: 30px; font-size: 20px; }
+        .button1 { display: inline-block; background-color: white; color: #252330; font-size: 18px; padding: 12px 25px; border: none; border-radius: 25px; cursor: pointer; }
+        .button1:hover { background-color: #86849a; }
+        #custom-price { padding: 10px; border-radius: 10px; width: 20%; }
+        #payment-slider { -webkit-appearance: none; width: 36%; height: 8px; background: white; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1 id="donation-header">Join the Effort: Donate to Disaster Relief</h1>
+    <div id="message"><p>Make a difference today!</p></div>
+
+    <!-- Donation Slider -->
+    <div id="donation_bar">
+        <input type="range" id="payment-slider" min="0" max="8" step="1" value="0" />
+        <span id="amount">₹10</span><br><br>
+    </div>
+
+    <!-- Custom Pricing -->
+    <div class="donation-content">
+        <label for="custom-price">Add custom price :</label>
+        <input type="text" id="custom-price" placeholder="Enter amount" /><br>
+    </div>
+
+    <div id="impactMessage">Your ₹10 can provide clean drinking water for a family for a day.</div>
+    <br>
+
+    <!-- Donate Now Button -->
+    <button class="button1" onclick="redirectToQR()">Donate Now</button>
+
+    <script>
+        const donationAmounts = [10, 50, 100, 200, 500, 1000, 2000, 5000, 10000];
+        const impactMessages = [
+            "Your ₹10 can provide clean drinking water for a family for a day.",
+            "Your ₹50 can provide food for a family for 2 days.",
+            "Your ₹100 can support medical supplies for a small community.",
+            "Your ₹200 can help provide temporary shelter for a family in need.",
+            "Your ₹500 can help distribute hygiene kits to families affected by disaster.",
+            "Your ₹1000 can fund an entire community’s water purification system for a week.",
+            "Your ₹2000 can contribute to the rebuilding of homes for displaced families.",
+            "Your ₹5000 can sponsor a rescue operation for multiple families in distress.",
+            "Your ₹10000 can provide complete disaster relief for a village in need."
+        ];
+
+        document.getElementById('payment-slider').addEventListener('input', function() {
+            const index = this.value;
+            document.getElementById('amount').innerText = `₹${donationAmounts[index]}`;
+            document.getElementById('impactMessage').innerText = impactMessages[index];
+        });
+
+        function redirectToQR() {
+            let selectedAmount = document.getElementById('amount').innerText.replace('₹', '');
+            let customAmount = document.getElementById('custom-price').value;
+
+            let amountToDonate = customAmount && !isNaN(customAmount) ? customAmount : selectedAmount;
+            window.location.href = `qr_page.html?amount=${amountToDonate}`;
+        }
+    </script>
+</body>
+</html>
