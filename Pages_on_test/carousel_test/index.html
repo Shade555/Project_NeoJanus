@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotating Card Carousel</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="carousel-container">
+        <button class="nav-btn left-btn" onclick="prevCard()">&#10094;</button>
+        <div class="carousel">
+            <div class="card">Card 1</div>
+            <div class="card active">Card 2</div>
+            <div class="card">Card 3</div>
+            <div class="card">Card 4</div> <!-- More cards can be added here -->
+        </div>
+        <button class="nav-btn right-btn" onclick="nextCard()">&#10095;</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

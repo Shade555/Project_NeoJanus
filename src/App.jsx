@@ -4,6 +4,8 @@ import { auth } from "./firebase";
 import Signup from "./Signup";  // ✅ No "pages/" folder, so use "./"
 import Login from "./Login";    // ✅ No "pages/" folder, so use "./"
 import ExDashboard from "./exDashboard"; // ✅ Capitalized component name
+import Home from "./Home";
+import "./Home.css";
 
 const ProtectedRoute = ({ children }) => {
   const [user] = useAuthState(auth);
@@ -17,6 +19,7 @@ function App() {
         <Route path="/" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<ProtectedRoute><ExDashboard /></ProtectedRoute>} /> {/* ✅ Fixed component name */}
+        <Route path="/home" element={<Home />} /> {/* ✅ Added a separate route for the Carousel */}
       </Routes>
     </Router>
   );

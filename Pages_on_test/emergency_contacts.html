@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Contacts</title>
+    <link rel="stylesheet" href="emergency_contacts.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Emergency Contacts</h2>
+        <input type="text" id="search" placeholder="Search contacts..." onkeyup="filterContacts()">
+        
+        <div id="contact-list">
+            <div class="contact" onclick="window.location.href='tel:112'">
+                <div class="info">
+                    <p>Emergency Helpline</p>
+                    <span>📞 112</span>
+                </div>
+            </div>
+    
+            <div class="contact">
+                <div class="info">
+                    <p>National Disaster Response Force (NDRF)</p>
+                    <span>📞 011-24363260 / 1078</span>
+                </div>
+            </div>
+    
+            <div class="contact">
+                <div class="info">
+                    <p>Fire & Rescue</p>
+                    <span>📞 101</span>
+                </div>
+            </div>
+    
+            <div class="contact">
+                <div class="info">
+                    <p>Police</p>
+                    <span>📞 100</span>
+                </div>
+            </div>
+    
+            <div class="contact">
+                <div class="info">
+                    <p>Ambulance</p>
+                    <span>📞 102 / 108</span>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Add Contact Section -->
+        <h2 class="left">Add Your Contacts</h2>
+        <div class="container2">
+            <input type="text" id="contact-name" class="info2" placeholder="Enter Name"><br>
+            <input type="text" id="contact-number" class="info2" placeholder="+91 xxxxx xxxxx"><br>
+            <button id="buttons" onclick="addContact()">➕ Add Contact</button>
+        </div>
+    
+        <!-- User-Added Contacts -->
+        <div id="user-contact-list" class="left">
+            <h2 class="left">Your Contacts</h2>
+        </div>
+    </div>
+
+    <script src="emergency_contacts.js"></script>
+</body>
+</html>

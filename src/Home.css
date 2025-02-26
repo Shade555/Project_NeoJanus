@@ -1,0 +1,132 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #0a0a0a;
+}
+
+.carousel-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: 500px;
+  overflow: visible; /* Ensure elements are not clipped */
+    position: relative;
+    z-index: 500;
+}
+
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+}
+
+.card-wrapper {
+  position: absolute;
+  transition: transform 0.4s ease-in-out, opacity 0.4s;
+}
+
+.card-wrapper.center {
+  transform: scale(1);
+  z-index: 3;
+}
+
+.card-wrapper.left, 
+.card-wrapper.right {
+  filter: blur(6px); /* Reduce blur slightly */
+  opacity: 0.85; /* Make them slightly more visible */
+  z-index: 2;
+}
+
+.card-wrapper.left {
+  transform: translateX(-150%) scale(0.9); /* Shift left card closer */
+}
+
+.card-wrapper.right {
+  transform: translateX(150%) scale(0.9); /* Shift right card closer */
+}
+
+.card-item {
+  width: 350px;
+  padding: 35px;
+  text-align: center;
+  color: #fff;
+  border-radius: 8px;
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.card-item .icon {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  color: #070a0b;
+  margin: 0 auto 20px;
+}
+
+.message-button {
+  font-size: 1rem;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #fff;
+  color: #030728;
+  border: 1px solid transparent;
+  transition: 0.3s ease;
+}
+
+.message-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #fff;
+  color: #fff;
+}
+
+/* Fix navigation button positioning */
+.nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  padding: 15px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: 0.3s ease;
+  z-index: 5; /* Ensure buttons stay on top */
+    position: relative;
+    z-index: 1000 !important;
+    display: block !important;
+}
+
+.nav-button.left {
+  left: -60px; /* Move further outside */
+}
+
+.nav-button.right {
+  right: -60px; /* Move further outside */
+}
+
+.nav-button:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
