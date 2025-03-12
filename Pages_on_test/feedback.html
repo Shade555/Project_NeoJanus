@@ -7,6 +7,56 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="feedback.css"> 
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import Firebase Modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        // Firebase Config (Replace with your actual config from Firebase Console)
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Handle Form Submission
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("feedback-form").addEventListener("submit", async function (event) {
+                event.preventDefault(); // Prevent page refresh
+
+                let name = document.getElementById("name").value;
+                let email = document.getElementById("email").value;
+                let feedback = document.getElementById("feedback").value;
+                let feedbackMessage = document.getElementById("feedback-message");
+
+                try {
+                    await addDoc(collection(db, "feedback"), {
+                        name: name,
+                        email: email,
+                        feedback: feedback,
+                        timestamp: serverTimestamp()
+                    });
+
+                    feedbackMessage.innerHTML = "✅ Feedback submitted successfully!";
+                    feedbackMessage.style.color = "green";
+                    document.getElementById("feedback-form").reset();
+                } catch (error) {
+                    console.error("Error adding feedback: ", error);
+                    feedbackMessage.innerHTML = "❌ Error submitting feedback. Please try again.";
+                    feedbackMessage.style.color = "red";
+                }
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="overlay">
@@ -27,6 +77,7 @@
                     <textarea id="feedback" name="feedback" rows="3" class="form-control" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                <p id="feedback-message" class="mt-2"></p>
             </form>
         </div>
     </div>
