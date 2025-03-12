@@ -8,24 +8,43 @@
 }
 
 body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
   background-color: #0a0a0a;
+  overflow-x: hidden;
 }
 
+/* Holographic Earth - Absolute Background */
+.holographic-earth-container {
+  position: absolute; /* Changed from fixed */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Ensure canvas doesn't interfere */
+canvas {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Carousel - Absolute Foreground */
 .carousel-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
+  position: absolute; /* Changed from fixed */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 100%;
   max-width: 900px;
   height: 500px;
-  overflow: visible; /* Ensure elements are not clipped */
-    position: relative;
-    z-index: 500;
+  z-index: 10;
 }
 
 .carousel {
@@ -36,6 +55,7 @@ body {
   position: relative;
 }
 
+/* Card Positioning */
 .card-wrapper {
   position: absolute;
   transition: transform 0.4s ease-in-out, opacity 0.4s;
@@ -48,19 +68,20 @@ body {
 
 .card-wrapper.left, 
 .card-wrapper.right {
-  filter: blur(6px); /* Reduce blur slightly */
-  opacity: 0.85; /* Make them slightly more visible */
+  filter: blur(4px);
+  opacity: 0.8;
   z-index: 2;
 }
 
 .card-wrapper.left {
-  transform: translateX(-150%) scale(0.9); /* Shift left card closer */
+  transform: translateX(-150%) scale(0.9);
 }
 
 .card-wrapper.right {
-  transform: translateX(150%) scale(0.9); /* Shift right card closer */
+  transform: translateX(150%) scale(0.9);
 }
 
+/* Card Design */
 .card-item {
   width: 350px;
   padding: 35px;
@@ -85,24 +106,7 @@ body {
   margin: 0 auto 20px;
 }
 
-.message-button {
-  font-size: 1rem;
-  padding: 10px 20px;
-  border-radius: 6px;
-  cursor: pointer;
-  background: #fff;
-  color: #030728;
-  border: 1px solid transparent;
-  transition: 0.3s ease;
-}
-
-.message-button:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid #fff;
-  color: #fff;
-}
-
-/* Fix navigation button positioning */
+/* Navigation Buttons */
 .nav-button {
   position: absolute;
   top: 50%;
@@ -113,20 +117,83 @@ body {
   cursor: pointer;
   border-radius: 50%;
   transition: 0.3s ease;
-  z-index: 5; /* Ensure buttons stay on top */
-    position: relative;
-    z-index: 1000 !important;
-    display: block !important;
+  z-index: 5;
 }
 
 .nav-button.left {
-  left: -60px; /* Move further outside */
+  left: -100px;
 }
 
 .nav-button.right {
-  right: -60px; /* Move further outside */
+  right: -100px;
 }
 
 .nav-button:hover {
   background: rgba(255, 255, 255, 0.5);
+}
+
+/* Scrollable Content */
+.content {
+  position: relative;
+  margin-top: 100vh;
+  padding: 50px 20px;
+}
+
+/* About Us Section */
+.about-us {
+  text-align: center;
+  margin: 0 auto 40px;
+  padding: 20px;
+  max-width: 600px;
+  background: rgba(0, 43, 54, 0.8);
+  color: white;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  background: #002b36;
+  color: white;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+.footer a {
+  color: #00bcd4;
+  text-decoration: none;
+  margin: 0 5px;
+  transition: color 0.3s;
+}
+
+.footer a:hover {
+  color: #ffffff;
+}
+
+/* Message Button */
+.message-button {
+  background: linear-gradient(#002b36, #004d40);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  outline: none;
+  box-shadow: 0 4px 10px rgba(0, 77, 64, 0.3);
+  margin-top: 15px;
+}
+
+.message-button:hover {
+  background: linear-gradient(#004d40, #00695c);
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 77, 64, 0.5);
+}
+
+.message-button:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 6px rgba(0, 77, 64, 0.3);
 }

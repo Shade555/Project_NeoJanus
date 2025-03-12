@@ -29,12 +29,12 @@ body {
     position: relative;
     width: 100%;
     justify-content: center;
-    align-items: center; /* Ensures cards align properly */
+    align-items: center;
 }
 
 .card {
-    width: 280px; /* Slightly wider */
-    height: 280px; /* Increased height */
+    width: 180px; /* Reduced width for overlap effect */
+    height: 280px; /* Same height */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -44,16 +44,18 @@ body {
     text-align: center;
     background: rgba(255, 255, 255, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(30px);
+    backdrop-filter: blur(15px); /* Added some blur */
     position: absolute;
     transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
 }
 
-/* Bring cards closer together for partial overlap */
-.card:nth-child(1) { transform: translateX(-140px) scale(0.9); opacity: 0.7; }
-.card:nth-child(2) { transform: translateX(0px) scale(1); opacity: 1; }
-.card:nth-child(3) { transform: translateX(140px) scale(0.9); opacity: 0.7; }
-.card:nth-child(n+4) { opacity: 0; transform: translateX(500px) scale(0.5); }
+/* Layout of cards: center card and surrounding cards */
+.card:nth-child(1) { transform: translateX(-320px) scale(0.6); opacity: 0.5; }
+.card:nth-child(2) { transform: translateX(-160px) scale(0.8); opacity: 0.7; }
+.card:nth-child(3) { transform: translateX(0px) scale(1); opacity: 1; }
+.card:nth-child(4) { transform: translateX(160px) scale(0.8); opacity: 0.7; }
+.card:nth-child(5) { transform: translateX(320px) scale(0.6); opacity: 0.5; }
+.card:nth-child(n+6) { opacity: 0; transform: translateX(500px) scale(0.5); }
 
 /* Navigation Buttons */
 .nav-btn {

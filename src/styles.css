@@ -2,14 +2,13 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    background: linear-gradient(#002b36, #004d40);
+    background: linear-gradient(#002b36, #004d40); /* Re-added gradient */
     min-height: 100vh;
-    /*display: flex;
+    display: flex;
     align-items: center;
-    justify-content: center;*/
-    display: block;
+    justify-content: center;
 }
-  
+
 .login-box {
     width: 400px;
     padding: 40px;

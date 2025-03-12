@@ -1,11 +1,13 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
-import Signup from "./Signup";  // ✅ No "pages/" folder, so use "./"
-import Login from "./Login";    // ✅ No "pages/" folder, so use "./"
-import ExDashboard from "./exDashboard"; // ✅ Capitalized component name
+import Signup from "./Signup";  
+import Login from "./Login";    
+import ExDashboard from "./exDashboard"; 
 import Home from "./Home";
 import "./Home.css";
+import { Canvas } from "@react-three/fiber"; // ✅ Import Canvas for 3D components
+import HolographicEarth from "./HolographicEarth"; // ✅ Import your 3D Earth component
 
 const ProtectedRoute = ({ children }) => {
   const [user] = useAuthState(auth);
@@ -18,8 +20,16 @@ function App() {
       <Routes>
         <Route path="/" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<ProtectedRoute><ExDashboard /></ProtectedRoute>} /> {/* ✅ Fixed component name */}
-        <Route path="/home" element={<Home />} /> {/* ✅ Added a separate route for the Carousel */}
+        <Route path="/dashboard" element={<ProtectedRoute><ExDashboard /></ProtectedRoute>} />
+        <Route path="/home" element={<Home />} />
+        <Route 
+          path="/holographic-earth" 
+          element={
+            <Canvas>
+              <HolographicEarth />
+            </Canvas>
+          } 
+        />
       </Routes>
     </Router>
   );
