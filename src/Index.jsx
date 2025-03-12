@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "./firebase";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
@@ -11,6 +11,15 @@ const Index = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  // ✅ Override global background when Index.jsx is loaded
+  useEffect(() => {
+    document.body.style.background = "#cbd9e6"; // Set white background
+
+    return () => {
+      document.body.style.background = ""; // Restore original background on unmount
+    };
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
