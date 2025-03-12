@@ -7,12 +7,12 @@ import HolographicEarth from "./HolographicEarth"; // Import 3D model
 import "./Home.css";
 
 const cards = [
-  { icon: "💰", title: "Donation", description: "Support the cause with your generous donations." },
-  { icon: "🤝", title: "Volunteering", description: "Join us and make a difference in your community." },
-  { icon: "📝", title: "Feedback", description: "Share your thoughts and help us improve." },
-  { icon: "📊", title: "Dashboard", description: "Monitor progress and track your contributions." },
-  { icon: "📞", title: "Emergency Contact", description: "Reach out for urgent assistance and support." },
-  { icon: "❓", title: "Help", description: "Find answers to common questions and get support." },
+  { icon: "💰", title: "Donation", description: "Support the cause with your generous donations.", link: "/Pages_on_test/Donation.html" },
+  { icon: "🤝", title: "Volunteering", description: "Join us and make a difference in your community.", link: "/Pages_on_test/volunteering.html" },
+  { icon: "📝", title: "Feedback", description: "Share your thoughts and help us improve.", link: "/Pages_on_test/feedback.html" },
+  { icon: "📊", title: "Dashboard", description: "Monitor Real-time conditions of your area.", link: "exDashboard.jsx" },
+  { icon: "📞", title: "Emergency Contact", description: "Reach out for urgent assistance and support.", link: "/Pages_on_test/emergency_contacts.html" },
+  { icon: "❓", title: "Help", description: "Find answers to common questions and get support.", link: "/Pages_on_test/help.html" },
 ];
 
 const Home = () => {
@@ -43,37 +43,38 @@ const Home = () => {
         </button>
 
         <div className="carousel">
-          <AnimatePresence mode="popLayout">
-            {cards.map((card, index) => {
-              let relativePosition = index - currentIndex;
-              if (relativePosition < -Math.floor(cards.length / 2)) {
-                relativePosition += cards.length;
-              }
-              if (relativePosition > Math.floor(cards.length / 2)) {
-                relativePosition -= cards.length;
-              }
-              if (Math.abs(relativePosition) > 1) return null;
+        <AnimatePresence mode="popLayout">
+  {cards.map((card, index) => {
+    let relativePosition = index - currentIndex;
+    if (relativePosition < -Math.floor(cards.length / 2)) {
+      relativePosition += cards.length;
+    }
+    if (relativePosition > Math.floor(cards.length / 2)) {
+      relativePosition -= cards.length;
+    }
+    if (Math.abs(relativePosition) > 1) return null;
 
-              return (
-                <motion.div
-                  key={index}
-                  className={`card-wrapper ${
-                    relativePosition === 0 ? "center" : relativePosition === -1 ? "left" : "right"
-                  }`}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{
-                    opacity: relativePosition === 0 ? 1 : 0.7,
-                    scale: relativePosition === 0 ? 1 : 0.8,
-                    x: relativePosition === 0 ? 0 : relativePosition === -1 ? -280 : 280,
-                  }}
-                  transition={{ duration: 0.25 }}
-                  style={{ zIndex: relativePosition === 0 ? 3 : 2 }}
-                >
-                  <Card {...card} />
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
+    return (
+      <motion.div
+        key={index}
+        className={`card-wrapper ${
+          relativePosition === 0 ? "center" : relativePosition === -1 ? "left" : "right"
+        }`}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{
+          opacity: relativePosition === 0 ? 1 : 0.7,
+          scale: relativePosition === 0 ? 1 : 0.8,
+          x: relativePosition === 0 ? 0 : relativePosition === -1 ? -280 : 280,
+        }}
+        transition={{ duration: 0.25 }}
+        style={{ zIndex: relativePosition === 0 ? 3 : 2 }}
+      >
+        <Card icon={card.icon} title={card.title} description={card.description} link={card.link} />
+      </motion.div>
+    );
+  })}
+</AnimatePresence>
+
         </div>
 
         <button className="nav-button right" onClick={() => updateIndex(currentIndex + 1)}>
