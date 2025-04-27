@@ -10,7 +10,7 @@ const cards = [
   { icon: "💰", title: "Donation", description: "Support the cause with your generous donations.", link: "/Pages_on_test/Donation.html" },
   { icon: "🤝", title: "Volunteering", description: "Join us and make a difference in your community.", link: "/Pages_on_test/volunteer.html" },
   { icon: "📝", title: "Feedback", description: "Share your thoughts and help us improve.", link: "/Pages_on_test/feedback.html" },
-  { icon: "📊", title: "Dashboard", description: "Monitor Real-time conditions of your area.", link: "exDashboard.jsx" },
+  { icon: "📊", title: "Dashboard", description: "Monitor Real-time conditions of your area.", link: "Pages_on_test/dashboard.html" },
   { icon: "📞", title: "Emergency Contact", description: "Reach out for urgent assistance and support.", link: "/Pages_on_test/emergency_contacts.html" },
   { icon: "❓", title: "Help", description: "Find answers to common questions and get support.", link: "/Pages_on_test/help.html" },
 ];
