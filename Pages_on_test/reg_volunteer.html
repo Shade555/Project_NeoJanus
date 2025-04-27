@@ -5,6 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./reg_volunteer.css">
     <title>CrisisConnect | Volunteer</title>
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import Firebase Modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    
+        // Firebase Config (Replace with your actual config from Firebase Console)
+        const firebaseConfig = {
+            apiKey: "AIzaSyCM2zjI1kREdr4T4M7ESCmM3yFfpgIypew",
+            authDomain: "fb-test-130a7.firebaseapp.com",
+            projectId: "fb-test-130a7",
+            storageBucket: "fb-test-130a7.firebasestorage.app",
+            messagingSenderId: "55129211808",
+            appId: "1:55129211808:web:d9afa7fd0b2d049fd81ac5"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+    
+        // Capture checked values for checkboxes
+        function getCheckedValues(selector) {
+            const checkedValues = [];
+            document.querySelectorAll(selector).forEach(checkbox => {
+                if (checkbox.checked) {
+                    checkedValues.push(checkbox.value);
+                }
+            });
+            return checkedValues;
+        }
+    
+        // Close the popup when the close button is clicked
+        function closePopup() {
+            document.getElementById("thank-you-popup").style.display = "none";
+        }
+    
+        // Handle Form Submission
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("registration-form").addEventListener("submit", async function (event) {
+                event.preventDefault(); // Prevent page refresh
+    
+                // Gather form data
+                const fullName = document.getElementById("full-name").value;
+                const email = document.getElementById("email").value;
+                const contact = document.getElementById("contact").value;
+                const age = document.getElementById("age").value;
+                const address = document.getElementById("address").value;
+                const volunteerOpportunities = getCheckedValues(".volunteer-options input");
+                const disasters = getCheckedValues(".disasters-options input");
+    
+                try {
+                    // Add the data to Firestore
+                    await addDoc(collection(db, "volunteers"), {
+                        fullName,
+                        email,
+                        contact,
+                        age,
+                        address,
+                        volunteerOpportunities,
+                        disasters,
+                        timestamp: serverTimestamp() // Record submission time
+                    });
+    
+                    // Show the thank you popup
+                    document.getElementById("thank-you-popup").style.display = "block";
+                    
+                    // Reset the form after submission
+                    document.getElementById("registration-form").reset();
+                } catch (error) {
+                    console.error("Error adding volunteer data: ", error);
+                }
+            });
+
+            // Event listener for the close button (instead of inline onclick)
+            document.querySelector('.close-btn').addEventListener('click', closePopup);
+        });
+    </script>    
 </head>
 <body>
 
@@ -132,25 +210,10 @@
     </form>
 
     <!-- Thank You Popup -->
-    <div id="thank-you-popup" class="popup">
+    <div id="thank-you-popup" class="popup" style="display: none;">
         <p>Thank you so much for your incredible generosity and commitment to volunteering! Your time, effort, and dedication make a real difference, and we are truly grateful for your support. Together, we can create a positive impact and bring about meaningful change. Your willingness to lend a hand is deeply appreciated, and we’re lucky to have you as part of our team. Thank you for making the world a better place!</p>
-        <button class="close-btn" onclick="closePopup()">Close</button>
+        <button class="close-btn">Close</button>
     </div>
-
-    <script>
-        // Handle form submission and display popup
-        document.getElementById("registration-form").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent the form from submitting and refreshing the page
-
-            // Show the thank you popup
-            document.getElementById("thank-you-popup").style.display = "block";
-        });
-
-        // Close the popup when the close button is clicked
-        function closePopup() {
-            document.getElementById("thank-you-popup").style.display = "none";
-        }
-    </script>
 
 </body>
 </html>
