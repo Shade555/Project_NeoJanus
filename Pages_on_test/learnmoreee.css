@@ -1,0 +1,147 @@
+body {
+    background-color: #161d28;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    text-align: center;
+}
+
+h1 {
+    position: relative;
+    top: -30px;
+    align-items: center;
+}
+
+h3 {
+    position: relative;
+    top: -30px;
+    font-size: 20px;
+    padding: 25px;
+    align-items: center;
+    
+}
+
+.highlight {
+    color: #C8D9E6;
+}
+
+.half-page {
+    height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+}
+
+.grid-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+    top: -100px;
+    height: 60vh;
+    
+}
+.grid-sectionn {
+    height: 100vh;
+    display: grid;
+grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+gap: 20px;
+padding: 20px;
+align-items: center;
+justify-content: center;
+position: relative;
+top: -150px;
+flex-direction: column;
+}
+
+.grid-title {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.grid-title2 {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    position: relative;
+    top: -140px;
+    width: 200%;
+    right: -550px;
+}
+
+.grid-container {
+    display: grid;
+grid-template-columns: repeat(2, 1fr); 
+    gap: 40px;
+    max-width: 1100px;
+    width: 70%;
+    padding: 30px;
+    flex-wrap: wrap;
+    font-size: 17px;
+    text-align: center;
+    position: relative;
+    left: 70px;
+    
+}
+.grid-containerr {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+    gap: 60px; /* Space between items */
+    width: fit-content; /* Ensures grid only takes necessary width */
+    padding: 10px;
+    font-size: 17px;
+    position: relative;
+    top: 80px;
+
+    /* Centering the grid container */
+    margin: 0 auto; /* Centers the entire grid horizontally */
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.grid-item {
+    background: #C8D9E6;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    flex: 1;
+    min-width: 200px;
+    color: black;
+    position: relative;
+    left: -50px;
+}
+
+.content {
+    position: relative;
+    top: -40px;
+    text-align: center;}
+
+.grid-item i {
+    font-size: 24px;
+    color: #161d28;
+    margin-bottom: 10px;
+    display: block;
+    text-align: center;
+}
+
+@media (max-width: 1024px) {
+    .grid-container {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}

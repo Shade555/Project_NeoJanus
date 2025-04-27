@@ -1,0 +1,92 @@
+body {
+    color: #ffffff;
+    font-family: Garamond, serif;
+    overflow: hidden;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #859ba7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.feedback-container {
+    background-color: #1e2938;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    max-width: 500px;
+    width: 90%;
+    transform: translateY(-20px);
+    animation: slideIn 0.5s forwards;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.highlight-text {
+    background: linear-gradient(90deg, rgb(179, 201, 218) 0%, rgb(228, 218, 212) 50%, rgba(255, 255, 255, 1) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 24px;
+}
+
+h2 {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+button.btn-primary {
+    background-color: #C8D9E6;
+    border: 0.1px solid rgb(228, 218, 212);
+    border-radius: 30px;
+    padding: 10px 20px;
+    transition: background-color 0.3s, transform 0.2s;
+    width: 100%;
+    margin-top: 20px;
+    color: #000;
+}
+
+button.btn-primary:hover {
+    background: linear-gradient(90deg, rgb(146, 174, 195) 15%, rgb(205, 184, 173) 50%, rgb(231, 198, 198) 100%);
+    transform: scale(1.05);
+    color: #000;
+}
+
+.form-control {
+    background-color: #C8D9E6;
+    color: #fff;
+    border: 1px solid #FFF;
+}
+
+.form-control:focus {
+    background-color: #C8D9E6;
+    border-color:#C8D9E6;
+}
+
+.form-label {
+    color: #fff;
+}

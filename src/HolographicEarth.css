@@ -1,0 +1,15 @@
+.earth-container {
+    position: fixed; /* Fix it behind everything */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* Push it behind everything */
+    background: black; /* Optional: Ensure no white gaps */
+  }
+  
+  .earth-canvas {
+    width: 100%;
+    height: 100%;
+  }
+  

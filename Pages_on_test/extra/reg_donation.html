@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Form</title>
+    <style>
+        *{
+            margin: 10px;
+        }
+        body{
+            background-color: #252330;
+            color: white;
+        }
+        .image{
+            position: absolute;
+            left: 600px;
+            top: 80px;
+        }
+        .header{
+            font-size: 30px;
+            
+        }
+        .hidden{
+            padding-top: 4px;
+            font-size: 18px;
+        }
+        input[type="text"], input[type="email"], input[type="tel"], input[type="textbox"] {
+            width: 30%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #A1A2AB;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box; /* Ensures padding is included in the width calculation */
+        }
+
+        button {
+            background-color: #7e7c97;
+
+            padding: 14px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            width: 9%;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #434354;
+        }
+                
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h3>Donation form</h3>
+    </div>
+ <div id="registration-form" class="hidden">
+    <form>
+        <!-- Full Name Field -->
+        <label for="full-name">Full Name : </label><br>
+        <input type="text" id="full-name" name="full-name" required placeholder="Enter your full name"><br>
+
+        <!-- Email Field -->
+        <label for="email">Email : </label><br>
+        <input type="email" id="email" name="email" required placeholder="Enter your email"><br>
+
+        <!-- Phone Number Field -->
+        <label for="contact">Contact : </label><br>
+        <input type="tel" id="contact" name="contact" required placeholder="Enter your phone number"><br><br>
+
+        <!-- Payment Method Radio Buttons -->
+        <label>Payment Method:</label><br>
+        <input type="radio" id="GPay" name="payment-method" value="GPay" required>
+        <label for="GPay">GPay</label><br>
+
+        <input type="radio" id="paypal" name="payment-method" value="paypal" required>
+        <label for="paypal">PayPal</label><br>
+
+        <input type="radio" id="Paytm" name="payment-method" value="Paytm" required>
+        <label for="Paytm">Paytm</label><br>
+        <div class="image">
+        <img src ="images/donateee.png" height="400px">
+        </div>
+        <!-- Submit Button -->
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+</body>
+</html>

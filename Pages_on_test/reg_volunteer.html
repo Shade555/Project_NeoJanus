@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./reg_volunteer.css">
+    <title>CrisisConnect | Volunteer</title>
+</head>
+<body>
+
+    <h3>Volunteering Form</h3>
+    <form id="registration-form">
+        <!-- Full Name Field -->
+        <label for="full-name">Full Name : </label>
+        <input type="text" id="full-name" name="full-name" required placeholder="Enter your full name"><br>
+
+        <!-- Email Field -->
+        <label for="email">Email : </label>
+        <input type="email" id="email" name="email" required placeholder="Enter your email"><br>
+
+        <!-- Phone Number Field -->
+        <label for="contact">Contact : </label>
+        <input type="tel" id="contact" name="contact" required placeholder="Enter your phone number"><br>
+
+        <!-- Age Field -->
+        <label for="age">Age : </label>
+        <input type="text" id="age" name="age" required placeholder="Enter your age"><br>
+
+        <!-- Address Field -->
+        <label for="address">Address : </label>
+        <input type="text" id="address" name="address" required placeholder="Enter your address"><br>
+
+        <h3>Volunteering Opportunities</h3>
+
+        <div class="volunteer-options">
+            <label for="vo2">
+                <input type="checkbox" id="vo2" value="Logistic Support">
+                Logistic Support
+            </label>
+
+            <label for="vo3">
+                <input type="checkbox" id="vo3" value="Community Support">
+                Community Support
+            </label>
+
+            <label for="vo4">
+                <input type="checkbox" id="vo4" value="Medical assistance">
+                Medical Assistance
+            </label>
+
+            <label for="vo5">
+                <input type="checkbox" id="vo5" value="Post Disaster Recovery">
+                Post Disaster Recovery
+            </label>
+
+            <label for="vo6">
+                <input type="checkbox" id="vo6" value="Awareness Campaigns">
+                Awareness Campaigns
+            </label>
+
+            <label for="vo7">
+                <input type="checkbox" id="vo7" value="Local Disaster Training">
+                Local Disaster Training
+            </label>
+        </div>
+
+        <h3>Disasters</h3>
+
+        <div class="disasters-options">
+            <label for="d1">
+                <input type="checkbox" id="d1" value="Logistic Support">
+                Earthquakes
+            </label>
+
+            <label for="d2">
+                <input type="checkbox" id="d2" value="Community Support">
+                Flood
+            </label>
+
+            <label for="d3">
+                <input type="checkbox" id="d3" value="Medical assistance">
+                Tsunami
+            </label>
+
+            <label for="d4">
+                <input type="checkbox" id="d4" value="Post Disaster Recovery">
+                Oil Spills
+            </label>
+
+            <label for="d5">
+                <input type="checkbox" id="d5" value="Awareness Campaigns">
+                Urban Fire
+            </label>
+
+            <label for="d6">
+                <input type="checkbox" id="d6" value="Local Disaster Training">
+                Landslides
+            </label>
+
+            <label for="d7">
+                <input type="checkbox" id="d7" value="Logistic Support">
+                Wildfires
+            </label>
+
+            <label for="d8">
+                <input type="checkbox" id="d8" value="Community Support">
+                Droughts
+            </label>
+
+            <label for="d9">
+                <input type="checkbox" id="d9" value="Medical assistance">
+                Heat Waves
+            </label>
+
+            <label for="d10">
+                <input type="checkbox" id="d10" value="Post Disaster Recovery">
+                Tornadoes
+            </label>
+
+            <label for="d11">
+                <input type="checkbox" id="d11" value="Awareness Campaigns">
+                Explosions
+            </label>
+
+            <label for="d12">
+                <input type="checkbox" id="d12" value="Local Disaster Training">
+                Other many more
+            </label>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Thank You Popup -->
+    <div id="thank-you-popup" class="popup">
+        <p>Thank you so much for your incredible generosity and commitment to volunteering! Your time, effort, and dedication make a real difference, and we are truly grateful for your support. Together, we can create a positive impact and bring about meaningful change. Your willingness to lend a hand is deeply appreciated, and we’re lucky to have you as part of our team. Thank you for making the world a better place!</p>
+        <button class="close-btn" onclick="closePopup()">Close</button>
+    </div>
+
+    <script>
+        // Handle form submission and display popup
+        document.getElementById("registration-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the form from submitting and refreshing the page
+
+            // Show the thank you popup
+            document.getElementById("thank-you-popup").style.display = "block";
+        });
+
+        // Close the popup when the close button is clicked
+        function closePopup() {
+            document.getElementById("thank-you-popup").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>

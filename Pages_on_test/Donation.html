@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrisisConnect | Donation</title>
+    <link rel="stylesheet" href="./donation.css">
+</head>
+<body>
+    <h1 id="donation-header">
+        <span class="highlight">Join the Effort:</span> Donate to Disaster Relief
+    </h1>
+    
+    <div id="message">
+        <p>Make a difference today!</p>
+    </div>
+
+    <div id="donation_bar">
+        <input type="range" id="payment-slider" min="0" max="8" step="1" value="0" />
+        <span id="amount">₹10</span><br><br>
+    </div>
+
+    <div class="donation-content">
+        <label for="custom-price">Add custom price :</label>
+        <input type="text" id="custom-price" placeholder="Enter amount" /><br>
+        <label for="recurring-payment"><br>
+            <input type="checkbox" id="recurring-payment" name="recurring-payment" />
+            Make this a monthly donation.
+        </label>
+    </div>
+    
+    <div class="image">
+        <img src="./donatee.png" alt="Donate Image" width="550px">
+    </div>
+    
+    <div id="impactMessage">Your ₹10 can provide clean drinking water for a family for a day.</div>
+    <br>
+
+    <button class="button1" onclick="redirectToQR()">Donate Now</button>
+
+    <script src="./donation.js"></script>
+</body>
+</html>

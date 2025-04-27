@@ -1,0 +1,168 @@
+body {
+    background-color: #121212;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: left;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    padding-top: 20px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    position: relative;
+    left: 20px;
+}
+
+#search {
+    width: 80%;
+    position: relative;
+    left: 15px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    background: #333;
+    color: white;
+}
+
+#contact-list {
+    background: #121212;
+    border-radius: 10px;
+    padding: 10px;
+    width: 80%;
+}
+
+/* Button-styled contact entries */
+.contact {
+    display: flex;
+    align-items: center;
+    background: #121212;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 90px;
+    border: 1px solid white;
+    width: 100%;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.3s;
+    color: white;
+    font-size: 16px;
+}
+
+/* Hover effect for buttons */
+.contact:hover {
+    background-color: #333;
+}
+
+.contact .info {
+    flex: 1;
+    position: relative;
+    left: 40px;
+}
+
+
+.container2{
+    position: relative;
+    left: 650px;
+    top: -675px;
+}.user-contact {
+    display: flex;
+    align-items: center;
+    background: #121212;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 90px;
+    border: 1px solid white;
+    width: 100%;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.3s;
+    color: white;
+    font-size: 16px;
+}
+
+.user-contact:hover {
+    background-color: #333;
+}
+
+/* Align contact name and number */
+.user-contact span {
+    flex: 1;
+    position: relative;
+    left: 20px;
+}
+
+/* Style the delete button like a contact button */
+.user-contact button {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 90px;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.user-contact button:hover {
+    background-color: #333;
+}
+
+/* Ensure user contacts container matches emergency contacts style */
+#user-contact-list {
+    background: #121212;
+    border-radius: 10px;
+    padding: 0px;
+    width: 80%;
+    position: relative;
+    left: 630px;
+}
+.info2{
+    display: flex;
+   
+    align-items: center;
+    background: #121212;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 90px;
+    border: 1px solid white;
+    width: 70%;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.3s;
+    color: white;
+    font-size: 16px;
+    
+   
+}
+#buttons{
+    display: flex;
+    align-items: center;
+    background: #121212;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 90px;
+    border: 1px solid white;
+    width: 30%;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.3s;
+    color: white;
+    font-size: 16px;
+}
+.buttons:hover {
+    background-color: #333;
+}
+.left{
+    position: relative;
+    left: 660px;
+    top: -680px;
+}

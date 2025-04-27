@@ -1,0 +1,199 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  background-color: #0a0a0a;
+  overflow-x: hidden;
+}
+
+/* Holographic Earth - Absolute Background */
+.holographic-earth-container {
+  position: absolute; /* Changed from fixed */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Ensure canvas doesn't interfere */
+canvas {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Carousel - Absolute Foreground */
+.carousel-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute; /* Changed from fixed */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 900px;
+  height: 500px;
+  z-index: 10;
+}
+
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+}
+
+/* Card Positioning */
+.card-wrapper {
+  position: absolute;
+  transition: transform 0.4s ease-in-out, opacity 0.4s;
+}
+
+.card-wrapper.center {
+  transform: scale(1);
+  z-index: 3;
+}
+
+.card-wrapper.left, 
+.card-wrapper.right {
+  filter: blur(4px);
+  opacity: 0.8;
+  z-index: 2;
+}
+
+.card-wrapper.left {
+  transform: translateX(-150%) scale(0.9);
+}
+
+.card-wrapper.right {
+  transform: translateX(150%) scale(0.9);
+}
+
+/* Card Design */
+.card-item {
+  width: 350px;
+  padding: 35px;
+  text-align: center;
+  color: #fff;
+  border-radius: 8px;
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.card-item .icon {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  color: #070a0b;
+  margin: 0 auto 20px;
+}
+
+/* Navigation Buttons */
+.nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  padding: 15px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: 0.3s ease;
+  z-index: 5;
+}
+
+.nav-button.left {
+  left: -100px;
+}
+
+.nav-button.right {
+  right: -100px;
+}
+
+.nav-button:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Scrollable Content */
+.content {
+  position: relative;
+  margin-top: 100vh;
+  padding: 50px 20px;
+}
+
+/* About Us Section */
+.about-us {
+  text-align: center;
+  margin: 0 auto 40px;
+  padding: 20px;
+  max-width: 600px;
+  background: rgba(0, 43, 54, 0.8);
+  color: white;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  background: #002b36;
+  color: white;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+.footer a {
+  color: #00bcd4;
+  text-decoration: none;
+  margin: 0 5px;
+  transition: color 0.3s;
+}
+
+.footer a:hover {
+  color: #ffffff;
+}
+
+/* Message Button */
+.message-button {
+  background: linear-gradient(#002b36, #004d40);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  outline: none;
+  box-shadow: 0 4px 10px rgba(0, 77, 64, 0.3);
+  margin-top: 15px;
+}
+
+.message-button:hover {
+  background: linear-gradient(#004d40, #00695c);
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 77, 64, 0.5);
+}
+
+.message-button:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 6px rgba(0, 77, 64, 0.3);
+}

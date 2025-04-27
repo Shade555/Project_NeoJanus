@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Disaster Dashboard</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: #0a0a0a;
+      color: white;
+    }
+    .dashboard {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-gap: 20px;
+      padding: 20px;
+      height: 100vh;
+      box-sizing: border-box;
+    }
+    #map {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+    }
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .card {
+      background: rgba(255,255,255,0.1);
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .chart-container {
+      height: 250px;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <div id="map"></div>
+    <div class="sidebar">
+      <div class="card chart-container">
+        <canvas id="disasterChart"></canvas>
+      </div>
+      <div class="card">
+        <h3>Air Quality Index</h3>
+        <p>Location: <span id="aq-location">Loading...</span></p>
+        <p>AQI: <span id="aq-value">Loading...</span></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Leaflet map
+    const map = L.map('map').setView([20.5937, 78.9629], 4); // India centered
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+    }).addTo(map);
+
+    // Example: Disaster marker
+    L.circle([28.6139, 77.2090], {
+      color: 'red',
+      fillColor: '#f03',
+      fillOpacity: 0.5,
+      radius: 20000
+    }).addTo(map).bindPopup("🔥 Wildfire - Intensity: High");
+
+    // Example: Relief center
+    L.marker([28.6448, 77.2167]).addTo(map).bindPopup("🏥 Relief Center: Delhi HQ");
+
+    // Chart.js disaster ratio
+    const ctx = document.getElementById('disasterChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['Floods', 'Fires', 'Storms', 'Earthquakes'],
+        datasets: [{
+          data: [25, 40, 20, 15],
+          backgroundColor: ['#3498db', '#e74c3c', '#f1c40f', '#8e44ad']
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { labels: { color: 'white' } }
+        }
+      }
+    });
+
+    // Fetch AQI via local proxy
+    const lat = 28.6139;
+    const lng = 77.2090;
+
+    fetch(`http://localhost:3000/aqi?lat=${lat}&lng=${lng}`)
+      .then(response => response.json())
+      .then(data => {
+        const station = data.stations && data.stations[0];
+        if (station) {
+          document.getElementById('aq-value').innerText = station.AQI;
+          document.getElementById('aq-location').innerText = station.city || 'Unknown';
+        } else {
+          document.getElementById('aq-value').innerText = 'N/A';
+        }
+      })
+      .catch(err => {
+        console.error('AQI fetch failed:', err);
+        document.getElementById('aq-value').innerText = 'Error fetching AQI';
+      });
+  </script>
+</body>
+</html>

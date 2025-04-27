@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body{
+            background-color: #161d28;
+            color: #fff;
+            font-size: 20px;
+            margin: 30px;
+        }
+        .highlight{
+            background: linear-gradient(90deg, rgb(146, 174, 195) 15%, rgb(205, 184, 173) 50%, rgb(231, 198, 198) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 50px;
+        }
+        .intro{
+            width: 60%;
+        }
+        .buttons-container{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            justify-items: center;
+            margin-top: 50px;
+            grid-template-rows: repeat(3, auto);
+            position: relative;
+            left: -100px;
+        }
+        #button4{
+            position: relative;
+            left: -250px;
+            width: 100%;
+            padding: auto;
+        }
+        .buttons {
+            background-color: #C8D9E6;
+            border: 0.1px solid rgb(228, 218, 212);
+            border-radius: 30px;
+            padding: 12px 22px;
+            transition: background-color 0.3s, transform 0.2s;
+            color: #000;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            min-width: 230px;
+        }
+        .buttons:hover {
+            background: linear-gradient(90deg, rgb(146, 174, 195) 15%, rgb(205, 184, 173) 50%, rgb(231, 198, 198) 100%);
+            transform: scale(1.05);
+        }
+        .faq-container {
+            margin-top: 50px;
+            text-align: left;
+            padding: 50px;
+        }
+        .faq-container h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        .faq-item {
+            width: 80%;
+            max-width: 600px;
+            margin: 10px auto;
+            text-align: left;
+            position: relative;
+            left: -250px;
+        }
+        .faq-question {
+            width: 100%;
+            padding: 15px;
+            background-color: #C8D9E6;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 15px;
+        }
+        .faq-question:hover {
+            background-color: #a5b8c9;
+        }
+        .faq-answer {
+            display: none;
+            padding: 15px;
+            background-color: #2b3b4e;
+            color: white;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">YourWebsite</div>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Our Products</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">How it works?</a></li>
+                <li><a href="#">Contact us</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="about">
+        <div class="content">
+            <h1>ABOUT US</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <button>LEARN MORE</button>
+        </div>
+        <div class="image-container">
+            <img src="team-illustration.png" alt="Team Illustration">
+        </div>
+    </section>
+</body>
+</html>

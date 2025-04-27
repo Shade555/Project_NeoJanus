@@ -1,0 +1,85 @@
+* {
+    margin: 0;
+    padding: 0;
+      
+}
+body{
+    background-color: #C8D9E6;
+    color: #000;
+}
+
+.container{
+display: flex;
+flex-direction: column;
+width: 100vh;
+height: 90vh;
+
+}
+#header{
+position: relative;
+top: 80px;
+left:50px;
+font-size: 30px;
+
+
+}
+#text{
+position: relative;
+top:100px;
+left:20px;
+font-size: 20px;
+padding: 40px;
+width: 150%;
+
+}
+p{
+width: 40%;
+}
+.button{
+position: relative;
+top: 100px;
+left: 50px;
+padding: 10px;
+button {
+background-color: #1e2938; /* Green background */
+color: #fff; /* White text */
+font-size: 16px; /* Font size */
+padding: 12px 25px; /* Padding inside the button */
+border: none; /* Removes the default border */
+border-radius: 25px; /* Rounded corners */
+cursor: pointer; /* Cursor changes to pointer when hovered */
+transition: background-color 0.3s; /* Smooth transition on hover */
+}
+
+button:hover {
+    background-color: #2d3d53;
+    transform: scale(1.05);
+}
+
+
+}
+.link{
+font-size: 20px;
+padding-top: 20px;
+position: relative;
+left: 45px;
+padding: 20px;
+width: 80%;
+top:110px
+}
+a{
+
+color: rgb(255,255,255);
+text-decoration: none;
+}
+a:hover{
+color: #1e2938;
+
+}
+img{
+
+position: absolute;
+top: 15vh;
+left: 100vh;
+
+}

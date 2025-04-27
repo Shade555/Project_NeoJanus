@@ -1,0 +1,108 @@
+
+#donation-header .highlight {
+    color: #000; /* The color for 'Join the Effort' */
+  }
+  
+  #donation-header {
+    color: 000; /* The color for 'Donate to Disaster Relief' */
+  }
+  
+  body{
+      background-color: #C8D9E6;
+      color: #000;
+      font-size: 20px;
+      margin: 30px;
+  }
+  
+  #donation-header{
+      font-size: 40px;
+      position: relative;
+  }
+  
+  #message{
+      padding-top: 10px;
+      font-size: 20px;
+      margin-top: -10px;
+  }
+  
+  #donation_bar{ 
+      padding-top: 30px;
+      font-size: 20px;
+      padding-bottom: 20px;
+  }
+  
+  .donation-content{
+      font-size: 20px;
+      padding-bottom: 10px;
+  }
+  
+  .image{
+      position: absolute;
+      left: 650px;
+      top: 100px;
+  }
+  
+  #impactMessage{
+      padding-top: 60px;
+      font-size: 20px;
+  }
+  
+  /* Button Styling */
+  .button1 {
+      display: inline-block;
+      background-color: #1e2938;
+      
+      color: #fff;
+      font-size: 16px;
+      padding: 10px 22px;
+      border: 1px solid black;
+      border-radius: 25px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+  }
+  
+  .button1:hover {
+      background-color: #2d3d53;
+      transform: scale(1.05);
+  }
+  
+  
+  #custom-price{
+      padding: 10px;
+      border-radius: 10px;
+      width: 20%;
+  }
+  
+  /* Slider styling */
+  #payment-slider {
+      -webkit-appearance: none;
+      width: 36%;
+      height: 8px;
+      background: white;
+      border-radius: 4px;
+      outline: none;
+      background: linear-gradient(90deg, rgb(146, 174, 195) 15%, rgb(205, 184, 173) 50%, rgb(231, 198, 198) 100%);
+  }
+  
+  #payment-slider::-webkit-slider-runnable-track {
+      height: 5px;
+      background: white;
+      border-radius: 5px;
+  }
+  
+  #payment-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      background: #ffffff;
+      border-radius: 50%;
+      cursor: pointer;
+      margin-top: -8px; /* Center the thumb on the track */
+      
+  }
+  
+  #payment-slider:focus {
+      outline: none;
+  }
