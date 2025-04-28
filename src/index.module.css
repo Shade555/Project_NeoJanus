@@ -37,7 +37,7 @@ body {
     line-height: 20px;
     letter-spacing: 0.3px;
     margin: 20px 0;
-    color: #000099; 
+    color: #ffffff; 
 }
 
 .authContainer span {
@@ -220,4 +220,8 @@ body {
 
 .noGradient {
     background: #cbd9e6 !important; /* Force White */
+}
+
+#p2{
+    color: red;
 }

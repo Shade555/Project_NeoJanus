@@ -9,56 +9,64 @@
 <body>
     <div class="container">
         <h2>Emergency Contacts</h2>
-        <input type="text" id="search" placeholder="Search contacts..." onkeyup="filterContacts()">
-        
-        <div id="contact-list">
+        <!-- <input type="text" id="search" placeholder="Search contacts..." onkeyup="filterContacts()"> -->
+
+        <div id="contact-list" class="contact-group">
             <div class="contact" onclick="window.location.href='tel:112'">
                 <div class="info">
-                    <p>Emergency Helpline</p>
+                    <span>Emergency Helpline</span><br>
                     <span>📞 112</span>
                 </div>
             </div>
-    
-            <div class="contact">
+
+            <div class="contact" onclick="window.location.href='tel:1078'">
                 <div class="info">
-                    <p>National Disaster Response Force (NDRF)</p>
+                    <span>National Disaster Response Force (NDRF)</span><br>
                     <span>📞 011-24363260 / 1078</span>
                 </div>
             </div>
-    
-            <div class="contact">
+
+            <div class="contact" onclick="window.location.href='tel:101'">
                 <div class="info">
-                    <p>Fire & Rescue</p>
+                    <span>Fire & Rescue</span><br>
                     <span>📞 101</span>
                 </div>
             </div>
-    
-            <div class="contact">
+
+            <div class="contact" onclick="window.location.href='tel:100'">
                 <div class="info">
-                    <p>Police</p>
+                    <span>Police</span><br>
                     <span>📞 100</span>
                 </div>
             </div>
-    
-            <div class="contact">
+
+            <div class="contact" onclick="window.location.href='tel:102'">
                 <div class="info">
-                    <p>Ambulance</p>
+                    <span>Ambulance</span><br>
                     <span>📞 102 / 108</span>
                 </div>
             </div>
-        </div>
-    
-        <!-- Add Contact Section -->
-        <h2 class="left">Add Your Contacts</h2>
-        <div class="container2">
-            <input type="text" id="contact-name" class="info2" placeholder="Enter Name"><br>
-            <input type="text" id="contact-number" class="info2" placeholder="+91 xxxxx xxxxx"><br>
-            <button id="buttons" onclick="addContact()">➕ Add Contact</button>
-        </div>
-    
-        <!-- User-Added Contacts -->
-        <div id="user-contact-list" class="left">
-            <h2 class="left">Your Contacts</h2>
+
+            <div class="contact" onclick="window.location.href='tel:1092'">
+                <div class="info">
+                    <span>Earthquake Helpline</span><br>
+                    <span>📞 1092</span>
+                </div>
+            </div>
+
+            <div class="contact" onclick="window.location.href='tel:1070'">
+                <div class="info">
+                    <span>Rescue and Relief</span><br>
+                    <span>📞 1070</span>
+                </div>
+            </div>
+
+            <div class="contact" onclick="window.location.href='tel:108'">
+                <div class="info">
+                    <span>Emergency and Disaster Management</span><br>
+                    <span>📞 108</span>
+                </div>
+            </div>
         </div>
     </div>
 

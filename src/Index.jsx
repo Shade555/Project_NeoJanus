@@ -68,7 +68,7 @@ const Index = () => {
             onChange={(e) => setPassword(e.target.value)} 
             required 
           />
-          {error && <p className={styles.error}>{error}</p>}
+          {error && <p className={`${styles.error}`} id="p2">{error}</p>}
           <button type="submit">Sign Up</button>
         </form>
       </div>
@@ -93,7 +93,7 @@ const Index = () => {
             required 
           />
           {error && <p className={styles.error}>{error}</p>}
-          <a href="#">Forgot Your Password?</a>
+          
           <button type="submit">Sign In</button>
         </form>
       </div>
