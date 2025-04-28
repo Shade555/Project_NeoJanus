@@ -43,69 +43,42 @@ const Home = () => {
         </button>
 
         <div className="carousel">
-        <AnimatePresence mode="popLayout">
-  {cards.map((card, index) => {
-    let relativePosition = index - currentIndex;
-    if (relativePosition < -Math.floor(cards.length / 2)) {
-      relativePosition += cards.length;
-    }
-    if (relativePosition > Math.floor(cards.length / 2)) {
-      relativePosition -= cards.length;
-    }
-    if (Math.abs(relativePosition) > 1) return null;
+          <AnimatePresence mode="popLayout">
+            {cards.map((card, index) => {
+              let relativePosition = index - currentIndex;
+              if (relativePosition < -Math.floor(cards.length / 2)) {
+                relativePosition += cards.length;
+              }
+              if (relativePosition > Math.floor(cards.length / 2)) {
+                relativePosition -= cards.length;
+              }
+              if (Math.abs(relativePosition) > 1) return null;
 
-    return (
-      <motion.div
-        key={index}
-        className={`card-wrapper ${
-          relativePosition === 0 ? "center" : relativePosition === -1 ? "left" : "right"
-        }`}
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{
-          opacity: relativePosition === 0 ? 1 : 0.7,
-          scale: relativePosition === 0 ? 1 : 0.8,
-          x: relativePosition === 0 ? 0 : relativePosition === -1 ? -280 : 280,
-        }}
-        transition={{ duration: 0.25 }}
-        style={{ zIndex: relativePosition === 0 ? 3 : 2 }}
-      >
-        <Card icon={card.icon} title={card.title} description={card.description} link={card.link} />
-      </motion.div>
-    );
-  })}
-</AnimatePresence>
-
+              return (
+                <motion.div
+                  key={index}
+                  className={`card-wrapper ${
+                    relativePosition === 0 ? "center" : relativePosition === -1 ? "left" : "right"
+                  }`}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{
+                    opacity: relativePosition === 0 ? 1 : 0.7,
+                    scale: relativePosition === 0 ? 1 : 0.8,
+                    x: relativePosition === 0 ? 0 : relativePosition === -1 ? -280 : 280,
+                  }}
+                  transition={{ duration: 0.25 }}
+                  style={{ zIndex: relativePosition === 0 ? 3 : 2 }}
+                >
+                  <Card icon={card.icon} title={card.title} description={card.description} link={card.link} />
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
         </div>
 
         <button className="nav-button right" onClick={() => updateIndex(currentIndex + 1)}>
           <ChevronRight size={30} />
         </button>
-      </div>
-
-      {/* Scrollable Content */}
-      <div className="content">
-        {/* About Us Section */}
-        <section className="about-us">
-          <h2>About Us</h2>
-          <p>
-            Welcome to <strong>CrisesConnect</strong>, a platform dedicated to connecting people with vital resources. 
-            Whether you're looking to donate, volunteer, or seek assistance, we're here to support you. 
-            Our mission is to create a seamless, impactful experience for communities in need.
-          </p>
-        </section>
-
-        {/* Footer */}
-        <footer className="footer">
-          <h3>Contact Us</h3>
-          <p>Email: support@neorelief.org</p>
-          <p>Phone: +1 (555) 123-4567</p>
-          <p>Address: 123 Relief St, Hope City, HC 45678</p>
-          <p>Follow us: 
-            <a href="#"> Facebook</a> | 
-            <a href="#"> Twitter</a> | 
-            <a href="#"> Instagram</a>
-          </p>
-        </footer>
       </div>
     </>
   );

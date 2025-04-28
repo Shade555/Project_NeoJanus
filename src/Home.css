@@ -139,17 +139,6 @@ canvas {
   padding: 50px 20px;
 }
 
-/* About Us Section */
-.about-us {
-  text-align: center;
-  margin: 0 auto 40px;
-  padding: 20px;
-  max-width: 600px;
-  background: rgba(0, 43, 54, 0.8);
-  color: white;
-  border-radius: 12px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-}
 
 /* Footer */
 .footer {
@@ -173,7 +162,7 @@ canvas {
 
 /* Message Button */
 .message-button {
-  background: linear-gradient(#002b36, #004d40);
+  background: linear-gradient(#03123e, #161d28);
   color: white;
   border: none;
   padding: 12px 24px;
@@ -188,7 +177,7 @@ canvas {
 }
 
 .message-button:hover {
-  background: linear-gradient(#004d40, #00695c);
+  background: linear-gradient(#03123e, #303e56);
   transform: scale(1.05);
   box-shadow: 0 6px 12px rgba(0, 77, 64, 0.5);
 }
