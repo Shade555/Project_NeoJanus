@@ -3,7 +3,7 @@ import { useSwipeable } from "react-swipeable";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Card from "./Card";
-import HolographicEarth from "./HolographicEarth"; // Import 3D model
+import HolographicEarth from "./HolographicEarth";
 import "./Home.css";
 
 const cards = [
@@ -17,6 +17,7 @@ const cards = [
 
 const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [showAbout, setShowAbout] = useState(false);
 
   const updateIndex = (newIndex) => {
     if (newIndex < 0) newIndex = cards.length - 1;
@@ -31,12 +32,20 @@ const Home = () => {
 
   return (
     <>
-      {/* Holographic Earth (Fixed Background) */}
+      {/* Navbar */}
+      <nav className="navbar">
+        <button onClick={() => setShowAbout(false)}>Home</button>
+        <button onClick={() => setShowAbout(true)}>About Us</button>
+        <a href="/Pages_on_test/help.html">Help</a>
+        <a href="/Pages_on_test/feedback.html">Feedback</a>
+      </nav>
+
+      {/* Holographic Earth Background */}
       <div className="holographic-earth-container">
         <HolographicEarth />
       </div>
 
-      {/* Carousel (Fixed Center) */}
+      {/* Carousel Always Visible */}
       <div className="carousel-container" {...handlers}>
         <button className="nav-button left" onClick={() => updateIndex(currentIndex - 1)}>
           <ChevronLeft size={30} />
@@ -80,6 +89,24 @@ const Home = () => {
           <ChevronRight size={30} />
         </button>
       </div>
+
+      {/* About Us Slide Over */}
+      <AnimatePresence>
+        {showAbout && (
+          <motion.div
+            className="about-overlay"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="about-content">
+              <h1>About Us</h1>
+              <p>Welcome to our platform! We are committed to making a positive impact by connecting communities, providing real-time data, and offering support during emergencies. Join us in our mission to create a safer and more informed world.</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };
