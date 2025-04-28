@@ -9,7 +9,7 @@ import "./Home.css";
 const cards = [
   { icon: "💰", title: "Donation", description: "Support the cause with your generous donations.", link: "/Pages_on_test/Donation.html" },
   { icon: "🤝", title: "Volunteering", description: "Join us and make a difference in your community.", link: "/Pages_on_test/volunteer.html" },
-  { icon: "📰", title: "News", description: "Learn about the latest news on disasters in the world.", link: "/Pages_on_test/feedback.html" },
+  { icon: "📰", title: "News", description: "Learn about the latest news on disasters in the world.", link: "/Pages_on_test/news.html" },
   { icon: "📊", title: "Dashboard", description: "Monitor Real-time conditions of your area.", link: "Pages_on_test/dashboard.html" },
   { icon: "📞", title: "Emergency Contact", description: "Reach out for urgent assistance and support.", link: "/Pages_on_test/emergency_contacts.html" },
   { icon: "📚", title: "Educational Content", description: "Learn about how to mitigate through a disaster.", link: "/Pages_on_test/emergencyalertpage.html" },
