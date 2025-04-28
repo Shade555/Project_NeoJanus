@@ -11,16 +11,43 @@ const impactMessages = [
     "Your ₹10000 can provide complete disaster relief for a village in need."
 ];
 
-document.getElementById('payment-slider').addEventListener('input', function() {
+const slider = document.getElementById('payment-slider');
+const amountSpan = document.getElementById('amount');
+const impactMessage = document.getElementById('impactMessage');
+const customPriceInput = document.getElementById('custom-price');
+const recurringCheckbox = document.getElementById('recurring-payment');
+
+// Update displayed amount and message when slider moves
+slider.addEventListener('input', function() {
     const index = this.value;
-    document.getElementById('amount').innerText = `₹${donationAmounts[index]}`;
-    document.getElementById('impactMessage').innerText = impactMessages[index];
+    amountSpan.innerText = `₹${donationAmounts[index]}`;
+    impactMessage.innerText = impactMessages[index];
 });
 
 function redirectToQR() {
-    let selectedAmount = document.getElementById('amount').innerText.replace('₹', '');
-    let customAmount = document.getElementById('custom-price').value;
+    let selectedAmount = amountSpan.innerText.replace('₹', '');
+    let customAmount = customPriceInput.value.trim();
     
-    let amountToDonate = customAmount && !isNaN(customAmount) ? customAmount : selectedAmount;
-    window.location.href = `qr_page.html?amount=${amountToDonate}`;
+    let amountToDonate = (customAmount && !isNaN(customAmount)) ? parseFloat(customAmount) : parseFloat(selectedAmount);
+
+    if (isNaN(amountToDonate) || amountToDonate <= 0) {
+        alert("Please enter a valid donation amount.");
+        return;
+    }
+
+    // Save donation details to Firestore
+    db.collection("donations").add({
+        amount: amountToDonate,
+        recurring: recurringCheckbox.checked,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(() => {
+        console.log("Donation saved!");
+        // Redirect to QR code page with donation amount
+        window.location.href = `qr_page.html?amount=${amountToDonate}`;
+    })
+    .catch((error) => {
+        console.error("Error saving donation: ", error);
+        alert("Something went wrong. Please try again.");
+    });
 }
