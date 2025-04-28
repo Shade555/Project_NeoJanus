@@ -34,6 +34,7 @@ const Home = () => {
     <>
       {/* Navbar */}
       <nav className="navbar">
+        <div className="project-name">CrisesConnect</div>
         <button onClick={() => setShowAbout(false)}>Home</button>
         <button onClick={() => setShowAbout(true)}>About Us</button>
         <a href="/Pages_on_test/help.html">Help</a>

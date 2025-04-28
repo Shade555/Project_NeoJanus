@@ -4,116 +4,286 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Disaster Dashboard</title>
+
+  <!-- Leaflet Map -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: 'Montserrat', sans-serif;
-      background: #0a0a0a;
-      color: white;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Montserrat", sans-serif;
     }
+
+    body {
+      background-color: #0a0a0a;
+      color: white;
+      overflow-x: hidden;
+      height: 100vh;
+    }
+
     .dashboard {
       display: grid;
       grid-template-columns: 2fr 1fr;
-      grid-gap: 20px;
+      gap: 20px;
       padding: 20px;
-      height: 100vh;
-      box-sizing: border-box;
-    }
-    #map {
-      width: 100%;
       height: 100%;
-      border-radius: 10px;
+      box-sizing: border-box;
+      align-items: stretch;
     }
+
+    #map {
+      height: 100%;
+      width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
     .sidebar {
       display: flex;
       flex-direction: column;
       gap: 20px;
+      height: 100%;
     }
+
     .card {
-      background: rgba(255,255,255,0.1);
-      padding: 15px;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(15px);
+      padding: 20px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex-grow: 1;
     }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 22px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .info-item {
+      margin: 5px 0;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
     .chart-container {
       height: 250px;
     }
+
+    .card.large {
+      flex-grow: 2;
+    }
+
+    .card.medium {
+      flex-grow: 1;
+    }
+
+    .footer {
+      text-align: center;
+      color: #555;
+      font-size: 14px;
+      margin-top: 10px;
+    }
   </style>
 </head>
+
 <body>
+
   <div class="dashboard">
     <div id="map"></div>
+
     <div class="sidebar">
-      <div class="card chart-container">
-        <canvas id="disasterChart"></canvas>
+      <!-- Disaster Chart -->
+      <div class="card medium">
+        <h3>Disaster Distribution</h3>
+        <div class="chart-container">
+          <canvas id="disasterChart"></canvas>
+        </div>
       </div>
-      <div class="card">
-        <h3>Air Quality Index</h3>
-        <p>Location: <span id="aq-location">Loading...</span></p>
-        <p>AQI: <span id="aq-value">Loading...</span></p>
+
+      <!-- Air Quality Info -->
+      <div class="card medium">
+        <h3>Air Quality Index (AQI)</h3>
+        <div id="aqi-details">
+          <p class="info-item"><strong>Location:</strong> <span id="aq-location">Loading...</span></p>
+          <p class="info-item"><strong>City:</strong> <span id="aq-city">Loading...</span></p>
+          <p class="info-item"><strong>State:</strong> <span id="aq-state">Loading...</span></p>
+          <p class="info-item"><strong>Country:</strong> <span id="aq-country">Loading...</span></p>
+          <p class="info-item"><strong>AQI Value:</strong> <span id="aq-value">Loading...</span></p>
+          <p class="info-item"><strong>Last Updated:</strong> <span id="aq-updated">Loading...</span></p>
+        </div>
+      </div>
+
+      <!-- Additional Disaster Graph -->
+      <div class="card medium">
+        <h3>Disaster Events Over Time</h3>
+        <div class="chart-container">
+          <canvas id="disasterEventsChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Earthquake Magnitudes -->
+      <div class="card large">
+        <h3>Recent Earthquakes</h3>
+        <div class="chart-container">
+          <canvas id="earthquakeChart"></canvas>
+        </div>
       </div>
     </div>
   </div>
 
-  <script>
-    // Leaflet map
-    const map = L.map('map').setView([20.5937, 78.9629], 4); // India centered
+  <div class="footer">
+    &copy; 2025 Disaster Dashboard. All Rights Reserved.
+  </div>
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 18,
+  <script>
+    // Initialize Map
+    const map = L.map('map').setView([20.5937, 78.9629], 4);
+
+    // CartoDB Dark Theme
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://carto.com/">CartoDB</a>',
+      subdomains: 'abcd',
+      maxZoom: 19
     }).addTo(map);
 
-    // Example: Disaster marker
-    L.circle([28.6139, 77.2090], {
-      color: 'red',
-      fillColor: '#f03',
-      fillOpacity: 0.5,
-      radius: 20000
-    }).addTo(map).bindPopup("🔥 Wildfire - Intensity: High");
+    const lat = 28.6139;
+    const lng = 77.2090;
 
-    // Example: Relief center
-    L.marker([28.6448, 77.2167]).addTo(map).bindPopup("🏥 Relief Center: Delhi HQ");
+    // Fetch disaster data
+    fetch(`http://localhost:3000/disasters?lat=${lat}&lng=${lng}`)
+      .then(response => response.json())
+      .then(data => {
+        data.disasters.forEach(disaster => {
+          const { latitude, longitude, type, description } = disaster;
+          L.circle([latitude, longitude], {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: 20000
+          }).addTo(map).bindPopup(`<strong>${type}</strong><br>${description}`);
+        });
+      })
+      .catch(error => console.error('Error fetching disaster data:', error));
 
-    // Chart.js disaster ratio
+    // Fetch AQI data
+    fetch(`http://localhost:3000/aqi?lat=${lat}&lng=${lng}`)
+      .then(response => response.json())
+      .then(data => {
+        const station = data.stations[0];
+        document.getElementById('aq-location').innerText = station.station.name;
+        document.getElementById('aq-city').innerText = station.city;
+        document.getElementById('aq-state').innerText = station.state;
+        document.getElementById('aq-country').innerText = station.country;
+        document.getElementById('aq-value').innerText = station.AQI;
+        document.getElementById('aq-updated').innerText = station.lastUpdate;
+      })
+      .catch(error => console.error('Error fetching AQI data:', error));
+
+    // Disaster Distribution Pie Chart
     const ctx = document.getElementById('disasterChart').getContext('2d');
     new Chart(ctx, {
-      type: 'pie',
+      type: 'doughnut',
       data: {
         labels: ['Floods', 'Fires', 'Storms', 'Earthquakes'],
         datasets: [{
           data: [25, 40, 20, 15],
-          backgroundColor: ['#3498db', '#e74c3c', '#f1c40f', '#8e44ad']
+          backgroundColor: ['#ff6b6b', '#ff9f43', '#48dbfb', '#1dd1a1'],
+          borderColor: '#0a0a0a',
+          borderWidth: 2
         }]
       },
       options: {
         plugins: {
-          legend: { labels: { color: 'white' } }
+          legend: {
+            labels: {
+              color: 'white'
+            }
+          }
         }
       }
     });
 
-    // Fetch AQI via local proxy
-    const lat = 28.6139;
-    const lng = 77.2090;
-
-    fetch(`http://localhost:3000/aqi?lat=${lat}&lng=${lng}`)
-      .then(response => response.json())
-      .then(data => {
-        const station = data.stations && data.stations[0];
-        if (station) {
-          document.getElementById('aq-value').innerText = station.AQI;
-          document.getElementById('aq-location').innerText = station.city || 'Unknown';
-        } else {
-          document.getElementById('aq-value').innerText = 'N/A';
+    // Recent Earthquakes Line Chart
+    const earthquakeCtx = document.getElementById('earthquakeChart').getContext('2d');
+    new Chart(earthquakeCtx, {
+      type: 'line',
+      data: {
+        labels: ['1', '2', '3', '4', '5'],
+        datasets: [{
+          label: 'Magnitude',
+          data: [5.4, 6.1, 4.7, 7.0, 5.2],
+          borderColor: 'rgb(255, 99, 132)',
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            labels: {
+              color: 'white'
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: { color: 'white' }
+          },
+          y: {
+            ticks: { color: 'white' }
+          }
         }
-      })
-      .catch(err => {
-        console.error('AQI fetch failed:', err);
-        document.getElementById('aq-value').innerText = 'Error fetching AQI';
-      });
+      }
+    });
+
+    // Disaster Events Bar Chart
+    const eventsCtx = document.getElementById('disasterEventsChart').getContext('2d');
+    new Chart(eventsCtx, {
+      type: 'bar',
+      data: {
+        labels: ['January', 'February', 'March', 'April', 'May'],
+        datasets: [{
+          label: 'Disaster Events',
+          data: [12, 19, 3, 5, 2],
+          backgroundColor: '#f39c12',
+        }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            labels: {
+              color: 'white'
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: { color: 'white' }
+          },
+          y: {
+            ticks: { color: 'white' }
+          }
+        }
+      }
+    });
   </script>
+
 </body>
 </html>
