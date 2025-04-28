@@ -9,10 +9,10 @@ import "./Home.css";
 const cards = [
   { icon: "💰", title: "Donation", description: "Support the cause with your generous donations.", link: "/Pages_on_test/Donation.html" },
   { icon: "🤝", title: "Volunteering", description: "Join us and make a difference in your community.", link: "/Pages_on_test/volunteer.html" },
-  { icon: "📝", title: "Feedback", description: "Share your thoughts and help us improve.", link: "/Pages_on_test/feedback.html" },
+  { icon: "📰", title: "News", description: "Learn about the latest news on disasters in the world.", link: "/Pages_on_test/feedback.html" },
   { icon: "📊", title: "Dashboard", description: "Monitor Real-time conditions of your area.", link: "Pages_on_test/dashboard.html" },
   { icon: "📞", title: "Emergency Contact", description: "Reach out for urgent assistance and support.", link: "/Pages_on_test/emergency_contacts.html" },
-  { icon: "❓", title: "Help", description: "Find answers to common questions and get support.", link: "/Pages_on_test/help.html" },
+  { icon: "📚", title: "Educational Content", description: "Learn about how to mitigate through a disaster.", link: "/Pages_on_test/help.html" },
 ];
 
 const Home = () => {
@@ -92,21 +92,31 @@ const Home = () => {
 
       {/* About Us Slide Over */}
       <AnimatePresence>
-        {showAbout && (
-          <motion.div
-            className="about-overlay"
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="about-content">
-              <h1>About Us</h1>
-              <p>Welcome to our platform! We are committed to making a positive impact by connecting communities, providing real-time data, and offering support during emergencies. Join us in our mission to create a safer and more informed world.</p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+  {showAbout && (
+    <motion.div
+      className="about-overlay"
+      initial={{ x: "100%" }}
+      animate={{ x: 0 }}
+      exit={{ x: "100%" }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="about-section-grid">
+        <div className="about-card">
+          <h1>About Us</h1>
+          <p>Welcome to our platform! We are committed to making a positive impact by connecting communities, providing real-time data, and offering support during emergencies. Join us in our mission to create a safer and more informed world.</p>
+        </div>
+        <div className="about-card">
+          <h1>Our Goals</h1>
+          <p>Our goal is to empower individuals and communities through instant access to critical information, seamless volunteer coordination, emergency support, and fostering resilience in times of disaster.</p>
+        </div>
+        <div className="about-card">
+          <h1>Our Story</h1>
+          <p>This platform was born out of a desire to bridge the gap between people and the resources they need during crises. What started as a small project has now evolved into a community-driven tool for safety, support, and awareness.</p>
+        </div>
+      </div>
+    </motion.div>
+  )}
+</AnimatePresence>
     </>
   );
 };
