@@ -99,6 +99,13 @@
       font-size: 14px;
       margin-top: 10px;
     }
+    
+    .error-message {
+      color: #ff6b6b;
+      font-size: 14px;
+      margin-top: 10px;
+      text-align: center;
+    }
   </style>
 </head>
 
@@ -114,6 +121,7 @@
         <div class="chart-container">
           <canvas id="disasterChart"></canvas>
         </div>
+        <div id="disaster-chart-error" class="error-message"></div>
       </div>
 
       <!-- Air Quality Info -->
@@ -127,6 +135,7 @@
           <p class="info-item"><strong>AQI Value:</strong> <span id="aq-value">Loading...</span></p>
           <p class="info-item"><strong>Last Updated:</strong> <span id="aq-updated">Loading...</span></p>
         </div>
+        <div id="aqi-error" class="error-message"></div>
       </div>
 
       <!-- Additional Disaster Graph -->
@@ -135,6 +144,7 @@
         <div class="chart-container">
           <canvas id="disasterEventsChart"></canvas>
         </div>
+        <div id="events-chart-error" class="error-message"></div>
       </div>
 
       <!-- Earthquake Magnitudes -->
@@ -143,6 +153,7 @@
         <div class="chart-container">
           <canvas id="earthquakeChart"></canvas>
         </div>
+        <div id="earthquake-chart-error" class="error-message"></div>
       </div>
     </div>
   </div>
@@ -164,137 +175,235 @@
 
     const lat = 28.6139;
     const lng = 77.2090;
+    
+    // Helper function to handle fetch errors
+    async function fetchWithErrorHandling(url, errorElementId) {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return await response.json();
+      } catch (error) {
+        console.error(`Error fetching data from ${url}:`, error);
+        const errorElement = document.getElementById(errorElementId);
+        if (errorElement) {
+          errorElement.textContent = `Error: ${error.message || 'Failed to fetch data'}`;
+        }
+        return null;
+      }
+    }
 
     // Fetch disaster data
-    fetch(`http://localhost:3000/disasters?lat=${lat}&lng=${lng}`)
-      .then(response => response.json())
+    fetchWithErrorHandling(`http://localhost:3000/disasters?lat=${lat}&lng=${lng}`, 'disaster-chart-error')
       .then(data => {
+        if (!data || !data.disasters) return;
+        
         data.disasters.forEach(disaster => {
           const { latitude, longitude, type, description } = disaster;
           L.circle([latitude, longitude], {
-            color: 'red',
-            fillColor: '#f03',
+            color: getDisasterColor(type),
+            fillColor: getDisasterColor(type),
             fillOpacity: 0.5,
             radius: 20000
           }).addTo(map).bindPopup(`<strong>${type}</strong><br>${description}`);
         });
-      })
-      .catch(error => console.error('Error fetching disaster data:', error));
+      });
+      
+    // Get color based on disaster type
+    function getDisasterColor(type) {
+      const colors = {
+        'Flood': '#48dbfb',
+        'Fire': '#ff6b6b',
+        'Storm': '#ff9f43',
+        'Earthquake': '#1dd1a1'
+      };
+      return colors[type] || '#a55eea';
+    }
 
     // Fetch AQI data
-    fetch(`http://localhost:3000/aqi?lat=${lat}&lng=${lng}`)
-      .then(response => response.json())
+    fetchWithErrorHandling(`http://localhost:3000/aqi?lat=${lat}&lng=${lng}`, 'aqi-error')
       .then(data => {
-        const station = data.stations[0];
-        document.getElementById('aq-location').innerText = station.station.name;
-        document.getElementById('aq-city').innerText = station.city;
-        document.getElementById('aq-state').innerText = station.state;
-        document.getElementById('aq-country').innerText = station.country;
-        document.getElementById('aq-value').innerText = station.AQI;
-        document.getElementById('aq-updated').innerText = station.lastUpdate;
-      })
-      .catch(error => console.error('Error fetching AQI data:', error));
+        if (!data) return;
+        
+        // Check for different possible data structures
+        let station;
+        if (data.stations && data.stations[0]) {
+          station = data.stations[0];
+        } else if (data.data && data.data[0]) {
+          station = data.data[0];
+        } else {
+          station = data; // Assume the data itself contains the AQI information
+        }
+        
+        // Safely access nested properties with optional chaining
+        document.getElementById('aq-location').innerText = 
+          (station.station && station.station.name) || station.name || station.location || 'N/A';
+        document.getElementById('aq-city').innerText = station.city || 'N/A';
+        document.getElementById('aq-state').innerText = station.state || 'N/A';
+        document.getElementById('aq-country').innerText = station.country || 'N/A';
+        document.getElementById('aq-value').innerText = station.AQI || station.aqi || 'N/A';
+        document.getElementById('aq-updated').innerText = station.lastUpdate || station.updatedAt || 'N/A';
+      });
 
     // Disaster Distribution Pie Chart
-    const ctx = document.getElementById('disasterChart').getContext('2d');
-    new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        labels: ['Floods', 'Fires', 'Storms', 'Earthquakes'],
-        datasets: [{
-          data: [25, 40, 20, 15],
-          backgroundColor: ['#ff6b6b', '#ff9f43', '#48dbfb', '#1dd1a1'],
-          borderColor: '#0a0a0a',
-          borderWidth: 2
-        }]
-      },
-      options: {
-        plugins: {
-          legend: {
-            labels: {
-              color: 'white'
+    fetchWithErrorHandling(`http://localhost:3000/disasters?lat=${lat}&lng=${lng}`, 'disaster-chart-error')
+      .then(data => {
+        if (!data || !data.disasters) return;
+        
+        const disasterCounts = {
+          Floods: 0,
+          Fires: 0,
+          Storms: 0,
+          Earthquakes: 0
+        };
+        
+        data.disasters.forEach(disaster => {
+          if (disaster.type === 'Flood') disasterCounts.Floods++;
+          if (disaster.type === 'Fire') disasterCounts.Fires++;
+          if (disaster.type === 'Storm') disasterCounts.Storms++;
+          if (disaster.type === 'Earthquake') disasterCounts.Earthquakes++;
+        });
+
+        const ctx = document.getElementById('disasterChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Floods', 'Fires', 'Storms', 'Earthquakes'],
+            datasets: [{
+              data: [disasterCounts.Floods, disasterCounts.Fires, disasterCounts.Storms, disasterCounts.Earthquakes],
+              backgroundColor: ['#48dbfb', '#ff6b6b', '#ff9f43', '#1dd1a1'],
+              borderColor: '#0a0a0a',
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                labels: {
+                  color: 'white'
+                }
+              }
             }
           }
-        }
-      }
-    });
+        });
+      });
 
     // Disaster Events Over Time Line Chart
-    const eventsCtx = document.getElementById('disasterEventsChart').getContext('2d');
-    new Chart(eventsCtx, {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-        datasets: [{
-          label: 'Disasters',
-          data: [5, 8, 6, 10, 7],
-          borderColor: '#48dbfb',
-          backgroundColor: 'rgba(72, 219, 251, 0.2)',
-          fill: true,
-          tension: 0.4
-        }]
-      },
-      options: {
-        plugins: {
-          legend: {
-            labels: {
-              color: 'white'
-            }
-          }
-        },
-        scales: {
-          x: {
-            ticks: {
-              color: 'white'
-            }
-          },
-          y: {
-            ticks: {
-              color: 'white'
-            }
-          }
-        }
-      }
-    });
+    fetchWithErrorHandling(`http://localhost:3000/disasters?lat=${lat}&lng=${lng}`, 'events-chart-error')
+      .then(data => {
+        if (!data || !data.disasters) return;
+        
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May'];
+        const eventCounts = months.map(month => {
+          return data.disasters.filter(disaster => {
+            const date = new Date(disaster.date);
+            return date && date.getMonth() === months.indexOf(month);
+          }).length;
+        });
 
-    // Recent Earthquakes Line Chart
-    const earthquakeCtx = document.getElementById('earthquakeChart').getContext('2d');
-    new Chart(earthquakeCtx, {
-      type: 'line',
-      data: {
-        labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5'],
-        datasets: [{
-          label: 'Magnitude',
-          data: [5.4, 6.1, 4.7, 7.0, 5.2],
-          borderColor: 'rgb(255, 99, 132)',
-          backgroundColor: 'rgba(255, 99, 132, 0.2)',
-          fill: true,
-          tension: 0.3
-        }]
-      },
-      options: {
-        plugins: {
-          legend: {
-            labels: {
-              color: 'white'
-            }
-          }
-        },
-        scales: {
-          x: {
-            ticks: {
-              color: 'white'
-            }
+        const eventsCtx = document.getElementById('disasterEventsChart').getContext('2d');
+        new Chart(eventsCtx, {
+          type: 'line',
+          data: {
+            labels: months,
+            datasets: [{
+              label: 'Disasters',
+              data: eventCounts,
+              borderColor: '#48dbfb',
+              backgroundColor: 'rgba(72, 219, 251, 0.2)',
+              fill: true,
+              tension: 0.4
+            }]
           },
-          y: {
-            ticks: {
-              color: 'white'
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                labels: {
+                  color: 'white'
+                }
+              }
+            },
+            scales: {
+              x: {
+                ticks: {
+                  color: 'white'
+                }
+              },
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  color: 'white',
+                  precision: 0
+                }
+              }
             }
           }
-        }
-      }
-    });
-  </script>
+        });
+      });
 
-</body>
+    // Earthquake Magnitude Chart
+    fetchWithErrorHandling('http://localhost:3000/earthquakes', 'earthquake-chart-error')
+      .then(data => {
+        if (!data || !data.earthquakes) return;
+        
+        const magnitudes = data.earthquakes.map(eq => eq.magnitude);
+        const locations = data.earthquakes.map(eq => eq.location);
+        const times = data.earthquakes.map(eq => {
+          const date = new Date(eq.time);
+          return date ? date.toLocaleDateString() : 'Unknown';
+        });
+
+        const earthquakeCtx = document.getElementById('earthquakeChart').getContext('2d');
+        new Chart(earthquakeCtx, {
+          type: 'bar',
+          data: {
+            labels: locations,
+            datasets: [{
+              label: 'Earthquake Magnitudes',
+              data: magnitudes,
+              backgroundColor: '#ff9f43',
+              borderColor: '#e67e22',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  afterLabel: function(context) {
+                    return 'Date: ' + times[context.dataIndex];
+                  }
+                }
+              },
+              legend: {
+                labels: {
+                  color: 'white'
+                }
+              }
+            },
+            scales: {
+              x: {
+                ticks: {
+                  color: 'white'
+                }
+              },
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  color: 'white'
+                }
+              }
+            }
+          }
+        });
+      });
+  </script> 
+</body> 
 </html>
